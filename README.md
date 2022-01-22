@@ -1,7 +1,7 @@
 # School District Test Analysis with Pandas
 
 ## Project Overview
-The school board has requested a summary of the standardized test scores from all the schools isn the district. Given the datasets schools_complete.csv and students_complete.csv which contain data about each school's size and budget and each student at that schools reading and math grades, the task is to produce the following:
+The school board has requested a summary of the standardized test scores from all the schools in the district. Given the datasets schools_complete.csv and students_complete.csv which contain data about each school's size and budget and each student at that schools reading and math grades, the task is to produce the following:
 
 ### District Summary
 
@@ -40,7 +40,7 @@ The school board has requested a summary of the standardized test scores from al
 
 
 ## Challenge Overview
-The school board has notified us that the students_complete.csv file shows evidence of academic dishonesty. The reading and math grades for Thomas High School ninth graders appear to have been altered. Disiring to uphold state-testing standards this analysis was done by replacing the math and reading scores for Thomas High School with NaNs while keeping the rest of the data intact. 
+The school board has notified us that the students_complete.csv file shows evidence of academic dishonesty. The reading and math grades for Thomas High School ninth graders appear to have been altered. Desiring to uphold state-testing standards this analysis was done by replacing the math and reading scores for Thomas High School with NaNs while keeping the rest of the data intact. 
 
 ## Results
 ### Replace the math and reading scores for Thomas High School with NaNs
@@ -266,7 +266,7 @@ district_summary_df
 
 
 ## School Summary
-Changing the THS 9th graders tests scores to NaN and calculating the passing percentage with the 9th graders still in the calculations significantly effected the passing percentage for Thomas High School. When the 9th graders of THS are left unchanged, the percent passing math at THS was 93.3%. The percent of THS students passing math was 97.3%, and the percentage passing both subjects was 90.9%. When thedse calculations are made leaving the 9th graders in and setting their grades to NaN, the percentage passing is reduced to 66.9%, 69.7%, and 65.1% for math, reading, and passing both respectively. This reduction can be seen in the school summary dataframe below with the title "School Summary Including THS 9th Graders". Removing the THS 9th graders from the calculation returns the passing percentages near the values that they were in the calculations from the unaltered dataset. This change is reflected in the dataframe below titled "School Summary Excluding THS 9th Graders".  
+Changing the THS 9th graders tests scores to NaN and calculating the passing percentage with the 9th graders still in the calculations significantly affected the passing percentage for Thomas High School. When the 9th graders of THS are left unchanged, the percent passing math at THS was 93.3%. The percent of THS students passing math was 97.3%, and the percentage passing both subjects was 90.9%. When these calculations are made leaving the 9th graders in and setting their grades to NaN, the percentage passing is reduced to 66.9%, 69.7%, and 65.1% for math, reading, and passing both respectively. This reduction can be seen in the school summary dataframe below with the title "School Summary Including THS 9th Graders". Removing the THS 9th graders from the calculation returns the passing percentages near the values that they were in the calculations from the unaltered dataset. This change is reflected in the dataframe below titled "School Summary Excluding THS 9th Graders".  
 
 ### *School Summary Including THS 9th Graders*
 <table border="1" class="dataframe">
@@ -676,11 +676,12 @@ Changing the THS 9th graders tests scores to NaN and calculating the passing per
 
 ## Math and Reading Scores by Grade 
 
-- Bacause only the 9th graders of THS had their grades replaced by NaN, the only change in the Math and Reading Scores by Grade in dataframe is the the indicie the these students shows NaN. All other values are unchanged.
+- Because only the 9th graders of THS had their grades replaced by NaN, the only change in the Math and Reading Scores by Grade dataframe is that the indicie of these students show NaN. All other values are unchanged.
 
 
 ## Scores by School Spending, School Size, and School Type
-The new calculated passing percentages in the `per_school_summary_df` for students grades 10th through 12th replaced the previous percentages effected by the NaN. Thus, as discussed in prior explanation, little change in the THS passing percentages for the test scores is observed in the revised School Summary dataframe or any subsequent dataframes that pull data from the `per_school_summary_df`. 
+
+- The new calculated passing percentages in the `per_school_summary_df` for students grades 10th through 12th replaced the previous percentages effected by the NaN. Th observed change was negligible from the calculations from the unaltered dataset. Thus, as discussed in prior explanation, little change in the THS passing percentages for the test scores is observed in any subsequent dataframes that pull data from the `per_school_summary_df` which was used in preparing the summaries of the school spending, size and type. 
 
 ```python
 # Establish the spending bins and group names.
@@ -797,9 +798,7 @@ group_names = ["Small (<1000)", "Medium (1000-2000)", "Large (2000-5000)"]
 per_school_summary_df["School Size"] = pd.cut(per_school_summary_df["Total Students"], size_bins, labels=group_names)
 
 per_school_summary_df.head()
-```
 
-```python
 # Calculate averages for the desired columns.
 size_math_scores = per_school_summary_df.groupby(["School Size"]).mean()["Average Math Score"]
 
@@ -810,8 +809,7 @@ size_passing_math = per_school_summary_df.groupby(["School Size"]).mean()["% Pas
 size_passing_reading = per_school_summary_df.groupby(["School Size"]).mean()["% Passing Reading"]
 
 size_overall_passing = per_school_summary_df.groupby(["School Size"]).mean()["% Overall Passing"]
-```
-```python
+
 # Assemble into DataFrame. 
 size_summary_df = pd.DataFrame({
           "Average Math Score" : size_math_scores,
@@ -821,9 +819,7 @@ size_summary_df = pd.DataFrame({
           "% Overall Passing": size_overall_passing})
 
 size_summary_df
-```
 
-```python
 # Format the DataFrame 
 size_summary_df["Average Math Score"] = size_summary_df["Average Math Score"].map("{:.1f}".format)
 
@@ -902,10 +898,7 @@ type_passing_math = per_school_summary_df.groupby(["School Type"]).mean()["% Pas
 type_passing_reading = per_school_summary_df.groupby(["School Type"]).mean()["% Passing Reading"]
 
 type_overall_passing = per_school_summary_df.groupby(["School Type"]).mean()["% Overall Passing"]
-```
 
-
-```python
 # Assemble into DataFrame. 
 type_summary_df = pd.DataFrame({
           "Average Math Score" : type_math_scores,
@@ -915,9 +908,7 @@ type_summary_df = pd.DataFrame({
           "% Overall Passing": type_overall_passing})
 
 type_summary_df
-```
 
-```python
 # Format the DataFrame 
 type_summary_df["Average Math Score"] = type_summary_df["Average Math Score"].map("{:.1f}".format)
 
@@ -972,9 +963,24 @@ type_summary_df
 </table>
 </div>
 
+## Summary
+In conclusion, after revising the dataset by replacing NaN for test scores of 9th graders at THS and removing them from the THS student count in average test score calculations, five main conclusions are drawn from the summary metrics that were calculated. They are:
 
+1. The 5 highest performing schools are all charter schools while the lowest performing 5 schools are all district schools.
+2. The range of average scores for all student's math scores was 75.91 to 85.00. The range of average test scores for all student's reading score was 80.31 to 84.70. These ranges in average scores are broken down by grade levels here:
 
+- Math:
+  - The minimum and maximum average math scores for 9th graders are: 76.40, 83.79
+  - The minimum and maximum average math scores for 10th graders are: 75.91, 84.23
+  - The minimum and maximum average math scores for 11th graders are: 76.40, 85.00
+  - The minimum and maximum average math scores for 12th graders are: 76.18, 84.12
 
-```python
+- Reading:
+  - The minimum and maximum average reading scores for 9th graders are: 80.63, 84.12
+  - The minimum and maximum average reading scores for 10th graders are: 80.63, 84.25
+  - The minimum and maximum average reading scores for 11th graders are: 80.40, 84.37
+  - The minimum and maximum average reading scores for 12th graders are: 80.31, 84.70
 
-```
+3. The amount of money spent per student is negatively correlated with the percentage of the student that passed. This trend can be observed in the *Average scores and spending ranges DataFrame*. Oddly, the smallest per student budget of <$584 resulted in the highest percentage of students passing math, reading, or both.
+4. Both small and medium sized schools performed better than their larger counterparts. This observation can be seen in the *Average scores based on the sizes of schools DataFrame*.
+5.  Overall, Charter schools largely outperform District schools with a percentage of overall passing rates of 90% at Charter schools vs 54% at District schools. This observation can be seen in the *Average Scores based on the School Type DataFrame*.
