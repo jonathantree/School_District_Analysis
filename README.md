@@ -34,8 +34,8 @@ The school board has requested a summary of the standardized test scores from al
 
 ## Resources Used
 - Data Sources: 
-  - schools_complete.csv
-  - students_complete.csv
+  - Resources/schools_complete.csv
+  - Resources/students_complete.csv
 - Software: Python 3.7.6, Pandas 1.3.5, NumPy 1.20.3
 
 
